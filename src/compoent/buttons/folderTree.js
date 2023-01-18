@@ -16,12 +16,12 @@ import React, {useState} from 'react';
           <div key={parent.name}>
             {/* rendering folders */}
             {parent.isFolder && <button 
-              className="h-8 bg-red-50 text-left" 
+              className="h-8 text-left" 
               onClick={() => toggleNested(parent.name)}
               >{parent.name}</button>}
             {/* rendering files */}
             {!parent.isFolder && <button 
-              className="h-8 bg-red-50 text-left" 
+              className="h-8 text-left" 
               rpath={parent.relative_path} 
               onClick={() => props.getRelativePath(parent.relative_path)}> {parent.name}</button>}
             <div style={{ display: !showNested[parent.name] && "none" }}>

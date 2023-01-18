@@ -1,5 +1,6 @@
 import zipFile from "../../jsLogic/zipFile";
-import CodeEditor from 'react-textarea-code-editor-2';
+// import CodeEditor from 'react-textarea-code-editor-2';
+import Editor, {DiffEditor, useMonaco, loader} from "@monaco-editor/react";
 import {useState, useEffect, useContext} from 'react'
 import UserContext from "../UserContext";
 
@@ -10,10 +11,11 @@ function QcodeEditor(props){
     
     return (
         <div>
-            <CodeEditor 
+            <Editor 
                 value={props.isClicked ? code : curcode}
-                language="python"
-                placeholder="Please enter Python code."
+                height="90vh"
+                defaultLanguage="python"
+                defaultValue="Edit code here"
                 onChange={(evn) => {
                     setcurCode(evn.target.value);
                     props.setIsClicked(false)

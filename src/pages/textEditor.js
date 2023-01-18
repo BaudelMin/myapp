@@ -4,6 +4,7 @@ import zipFile from "../jsLogic/zipFile";
 import { useState, useEffect, useRef} from "react";
 import { root } from "postcss";
 import UserContext from "../compoent/UserContext";
+import * as monaco from "@monaco-editor/react";
 
 var zip = new zipFile()
 
@@ -88,7 +89,7 @@ function QEditorWrapper(props){
             <UserContext.Provider value={{code, content}}>
                 <div className="flex flex-row items-start w-full m-5">
                     <div 
-                        className='h-max mr-2 w-1/6 border-2 border-black'
+                        className='h-max w-1/6 border-2 border-black'
                     > 
                     <FolderTree  
                         data={[data]} 
@@ -97,7 +98,7 @@ function QEditorWrapper(props){
                     />
                     </div>
                     <div
-                        className="ml-2 w-5/6 border-2 border-black"
+                        className="w-5/6 border-2 border-black"
                     >
                     <QcodeEditor 
                         code={code} 
