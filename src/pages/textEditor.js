@@ -4,59 +4,73 @@ import zipFile from "../jsLogic/zipFile";
 import { useState, useEffect, useRef} from "react";
 import { root } from "postcss";
 import UserContext from "../compoent/UserContext";
+import * as monaco from "@monaco-editor/react";
 
 var zip = new zipFile()
 
+
+
+const getLanguage = function(filename){
+    let extention = filename.slice(filename.lastIndexOf('.'))
+    let language = ''
+    switch (extention){
+        case '.py':
+            language = 'python';
+            break;
+        case '.md':
+            language = 'Markdown'
+            break;
+        case '.json':
+            language = 'JSON'
+        default:
+            language = 'python';
+            break;
+    }
+    return language
+}
+
 function QEditorWrapper(props){
-    const content = useRef([])
-    const [code, setCode] = useState('Edit code here.')
+    let files = useRef({})
+    const [fileName, setFileName] = useState('')
+    const [isFileAdded, setIsFileAdded] = useState(false)
     const [data, setData] = useState({
         name: 'root',
         isFolder: false
     })
     const [isClicked, setIsClicked] = useState(false)
-    const [rpath, getRpath] = useState('')
     useEffect(() => {
         document.addEventListener('keydown', getKeyPress, true)
-        console.log(content.current)
-        // console.log(isClicked)
-        if (zip.zipContent && isClicked 
-            && (content.current.find(obj => obj.relative_path === rpath).content === null)
-            ){
-            zip.getText(rpath)
-            .then(data => {
-                content.current.find(obj => obj.relative_path === rpath).content = data 
-                setCode(content.current.find(obj => obj.relative_path === rpath).content)
-            })
-            .catch(err => console.log(err))
-        }
-        else if (isClicked){
-            setCode(content.current.find(obj => obj.relative_path === rpath).content)
-        }
+        // console.log('files = ', files)
         
+        // console.log('name', fileName) 
        
     })
     function getKeyPress(event){
         if (event.ctrlKey && event.shiftKey && (event.code === 'KeyS')){
-            zip.saveContent(rpath, content.current.find(obj => obj.relative_path === rpath).content)
+            let file = files.current[fileName]
+            zip.saveContent(file.relative_path, file.content)
             
         }
     }
-    function getRelativePath(val){
-        
+    function getFileContent(val, name){
+        setIsFileAdded(false)
         setIsClicked(true)
-        // getRelativePath(val)
-        let new_content = content.current.find(obj => obj.relative_path === val) 
-        if(!new_content){
-            content.current.push({
-                relative_path: val,
-                content: null
+        setFileName(name)
+        
+        if(!(name in files.current)){
+            zip.getText(val)
+            .then(data => {
+                files.current[name] = {
+                    name: name,
+                    relative_path: val,
+                    content: data,
+                    language: getLanguage(name)
+                }
             })
-            getRpath(val)
-        }
-        else{
-            getRpath(new_content.relative_path)
-            
+            .catch(err => console.log(err))
+            .finally(() => {
+                setIsFileAdded(true)
+            })
         }
     }
     return (
@@ -77,7 +91,7 @@ function QEditorWrapper(props){
             <button
                 className="border-2 bg-red-200"
                 onClick={() => {
-                    content.current.forEach( eachContent => {
+                    files.current.forEach( eachContent => {
                         zip.saveContent(eachContent.relative_path, eachContent.content)
                     })
                     zip.saveZipFile()
@@ -85,31 +99,35 @@ function QEditorWrapper(props){
             >
                 Save File
             </button>
-            <UserContext.Provider value={{code, content}}>
+            <UserContext.Provider value={{files, fileName}}>
                 <div className="flex flex-row items-start w-full m-5">
                     <div 
-                        className='h-max mr-2 w-1/6 border-2 border-black'
+                        className='h-max w-1/6 border-2 border-black'
                     > 
-                    <FolderTree  
-                        data={[data]} 
-                        getRelativePath={getRelativePath}
-                        isClicked={isClicked}
-                    />
+                    {
+                        (zip.file)?
+                        <FolderTree  
+                            data={[data]} 
+                            getFileContent={getFileContent}
+                            setIsFileAdded={(value) => setIsFileAdded(value)}
+                            isClicked={isClicked}
+                        />:
+                        <div className="h-50">Folder tree</div>
+                    }
                     </div>
                     <div
-                        className="ml-2 w-5/6 border-2 border-black"
+                        className="w-5/6 border-2 border-black"
                     >
-                    <QcodeEditor 
-                        code={code} 
-                        rpath={rpath} 
-                        setCode={setCode}
-                        isClicked={isClicked}
-                        setIsClicked={setIsClicked}    
-                    />
+                    {(isFileAdded || (fileName in files.current))?
+                        <QcodeEditor 
+                            isClicked={isClicked}
+                            setIsClicked={setIsClicked}    
+                        />:
+                        <span>No file</span>
+                }
                     </div>
                 </div>
             </UserContext.Provider>
-            
         </div>
     )
 }
