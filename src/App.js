@@ -2,14 +2,14 @@
 import './App.css';
 // import Counter from './compoent/test/testUseRef';
 // import CalculatorPage from './pages/calculator';
-import QEditorWrapper from './pages/textEditor';
+// import QEditorWrapper from './pages/textEditor';
+import PageRoutes from './routes/navRoutes';
 
 function App() {
   return (
     <div className="App">
-      {/* <Counter /> */}
-      {/* <CalculatorPage /> */}
-      <QEditorWrapper />
+      <h4>App</h4>
+      <PageRoutes />
     </div>
   );
 }

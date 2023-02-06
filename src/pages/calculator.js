@@ -1,7 +1,7 @@
 import CalButton from '../compoent/buttons/button'
 import { useState, useRef } from 'react'
 import calculatorTask from '../jsLogic/calculatorTask'
-// import some_function from '../testFuntions'
+import MainWrapper from '../wrapper/Wrapper'
 
 
 var result = {
@@ -55,25 +55,29 @@ const CalculatorPage = function () {
       }
     
     return (
+       <>
+       <MainWrapper>
         <div className='bg-green-100 w-52 h-70 ml-10 mt-10'>
-            <div>
-                <h3>Calculator</h3>
+                <div>
+                    <h3>Calculator</h3>
+                </div>
+                <div id='element'>
+                    {(isInputVisible)?<div>
+                        <input onBlur={spanReset} defaultValue={output} autoFocus></input>
+                        </div>:
+                        (<span onClick={spanSwitch}>{output}</span>)}
+                </div>
+                <div className='flex-column justify-center'>
+                    <ButtonsFlexRow value={['C', '(', ')', '^']} getValue={onButtonClick}/>
+                    <ButtonsFlexRow value={['7', '8', '9', '/']}  getValue={onButtonClick}/>
+                    <ButtonsFlexRow value={['4', '5', '6', '*']} getValue={onButtonClick}/>
+                    <ButtonsFlexRow value={['1', '2', '3', '-']} getValue={onButtonClick}/>
+                    <ButtonsFlexRow value={['0', '.', '=', '+']} getValue={onButtonClick}/>
+                    
+                </div>
             </div>
-            <div id='element'>
-                {(isInputVisible)?<div>
-                    <input onBlur={spanReset} defaultValue={output} autoFocus></input>
-                    </div>:
-                    (<span onClick={spanSwitch}>{output}</span>)}
-            </div>
-            <div className='flex-column justify-center'>
-                <ButtonsFlexRow value={['C', '(', ')', '^']} getValue={onButtonClick}/>
-                <ButtonsFlexRow value={['7', '8', '9', '/']}  getValue={onButtonClick}/>
-                <ButtonsFlexRow value={['4', '5', '6', '*']} getValue={onButtonClick}/>
-                <ButtonsFlexRow value={['1', '2', '3', '-']} getValue={onButtonClick}/>
-                <ButtonsFlexRow value={['0', '.', '=', '+']} getValue={onButtonClick}/>
-                
-            </div>
-        </div>
+       </MainWrapper>
+       </>
     )
 }
 
