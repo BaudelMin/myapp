@@ -2,12 +2,12 @@ import zipFile from "../../jsLogic/zipFile";
 // import CodeEditor from 'react-textarea-code-editor-2';
 import Editor, {DiffEditor, useMonaco, loader} from "@monaco-editor/react";
 import {useState, useEffect, useContext} from 'react'
-import UserContext from "../UserContext";
+import CodeContext from "../CodeContext";
 
 var zip = new zipFile()
 let cvalue = 'Edit your code here'
 function QcodeEditor(props){
-    const {files, fileName} = useContext(UserContext)
+    const {files, fileName} = useContext(CodeContext)
     // console.log('files = ', files)
     let file = files.current[fileName]
     console.log('files = ', files)

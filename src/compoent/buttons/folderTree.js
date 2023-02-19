@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import UserContext from '../UserContext';
+import CodeContext from '../CodeContext';
 import { useContext } from 'react';
 
  const FolderTree = (props) => {
-  const {files, fileName} = useContext(UserContext)
+  const {files, fileName} = useContext(CodeContext)
   let data = props.data
   const [showNested, setShowNested] = useState({});
   let file = files[fileName]

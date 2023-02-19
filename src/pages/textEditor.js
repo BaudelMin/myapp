@@ -3,12 +3,12 @@ import QcodeEditor from "../compoent/editor/codeEditor";
 import zipFile from "../jsLogic/zipFile";
 import { useState, useEffect, useRef} from "react";
 import { root } from "postcss";
-import UserContext from "../compoent/UserContext";
+import CodeContext from "../compoent/CodeContext";
 import CodeDiffEditor from "../compoent/editor/DiffEditor";
 import * as monaco from "@monaco-editor/react";
 import MainWrapper from "../wrapper/Wrapper";
 
-var zip = new zipFile()
+// var zip = new zipFile()
 
 
 
@@ -33,6 +33,8 @@ const getLanguage = function(filename){
 
 function QEditorWrapper(props){
     let files = useRef({})
+    const [zip, setZip] = useState(new zipFile())
+    const [file, setFile] = useState(null)
     const [fileName, setFileName] = useState('')
     const [isFileAdded, setIsFileAdded] = useState(false)
     const [diffEditor, setDiffEditor] = useState(false)
@@ -43,11 +45,23 @@ function QEditorWrapper(props){
     const [isClicked, setIsClicked] = useState(false)
     useEffect(() => {
         document.addEventListener('keydown', getKeyPress, true)
-        // console.log('files = ', files)
-        
-        // console.log('name', fileName) 
+    }, [])
+    useEffect( () => {
+        console.log('file in use effect = ', zip.file)
+        if (file){
+            zip.file = file;
+            console.log('file = ', zip.file)
+            console.log('data = ', data)
+            zip.getZipTree()
+            .then(data => {
+                
+                setData(data);
+                
+            })
+            .catch(err => console.log(err))
+        }
        
-    })
+    }, [file])
     function getKeyPress(event){
         if (event.ctrlKey && event.shiftKey && (event.code === 'KeyS')){
             let file = files.current[fileName]
@@ -80,18 +94,22 @@ function QEditorWrapper(props){
     return (
         <>
         <MainWrapper>
-            <div>
+            <div className="mt-10">
                 <input 
                     id="file" 
                     type='file' 
                     accept=".zip" 
                     placeholder="Get a zip file"
                     onChange={e => {
-                        console.log('file  = ', e.target.files[0])
-                        zip.setFile(e.target.files[0])
-                        zip.getZipTree()
-                        .then(data => setData(data))
-                        .catch(err => console.log(err))
+                        // if(zip.file){
+                        //         // setZip(new zipFile())
+                        //         zip.file = null
+                        //     }
+                        // console.log('file  = ', e.target.files[0])
+                        // zip.file = e.target.files[0]
+                        setFile(e.target.files[0])
+                        setZip(new zipFile())
+                        
                         
                     }}
                     />
@@ -100,7 +118,7 @@ function QEditorWrapper(props){
                         setDiffEditor(!diffEditor)
                     }}
                 >
-                    {(diffEditor?<span>Code Editor</span>:<span>Diff Editor</span>)}
+                    {(diffEditor?<span>Code Editor</span>:<span>View Diff.</span>)}
                 </button>
                 <button
                     className="border-2 bg-red-200"
@@ -113,7 +131,7 @@ function QEditorWrapper(props){
                 >
                     Save File
                 </button>
-                <UserContext.Provider value={{files, fileName}}>
+                <CodeContext.Provider value={{files, fileName}}>
                     <div className="flex flex-row items-start w-full m-5">
                         <div 
                             className='h-max w-1/6 border-2 border-black'
@@ -143,7 +161,7 @@ function QEditorWrapper(props){
                     }
                         </div>
                     </div>
-                </UserContext.Provider>
+                </CodeContext.Provider>
             </div>
         </MainWrapper>
         </>
