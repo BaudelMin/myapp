@@ -148,7 +148,7 @@ function QEditorWrapper(props){
                         }
                         </div>
                         <div
-                            className="w-5/6 border-2 border-black"
+                            className="w-5/6"
                         >
                         {(isFileAdded || (fileName in files.current))?
                             (diffEditor?

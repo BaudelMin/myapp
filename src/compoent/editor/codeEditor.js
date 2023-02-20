@@ -19,7 +19,7 @@ function QcodeEditor(props){
         <div>
             <Editor 
                 height="90vh"
-                width="90vh"
+                width="80vh"
                 path={file.name}
                 // value={file.value}
                 // language={file.language}
