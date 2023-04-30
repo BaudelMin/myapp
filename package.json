@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "proxy": "http://127.0.0.1:8000",
+  "proxy": "http://localhost:3000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,7 +19,8 @@
     "react-scripts": "5.0.1",
     "react-textarea-code-editor-2": "^1.4.17",
     "web-vitals": "^2.1.4",
-    "yup": "^1.0.0"
+    "yup": "^1.0.0",
+    "zepto-browserify": "^1.1.6-1"
   },
   "scripts": {
     "start": "react-scripts start",

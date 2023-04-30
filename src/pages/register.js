@@ -7,19 +7,25 @@ import registerSchema from "../compoent/validation/regiterValidation";
 import { data } from "autoprefixer";
 
 function Register(){
-    const handleOnSubmit = async function(values){
+    const handleOnSubmit = async function(values, { setSubmitting, setErrors }){
         console.log('values = ', values)
         await axiosInstance.post('/user/register', {
             data: {
                 "username": values.username.toString(),
                 "password": values.password.toString(),
                 "email": values.email.toString()
-            }
+            },
+            mode:'cors'
         })
         .then( response => {
             console.log('response = ', response)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            setErrors(err.response.data)
+        })
+        .finally(() => {
+            setSubmitting(false)
+        })
     }
 
     return (
@@ -38,6 +44,7 @@ function Register(){
                     }
                     onSubmit={ handleOnSubmit }
                 >
+                   {({errors, touched}) => (
                     <Form className="">
                         <div className="m-5">
                             <label>Username:</label>
@@ -62,8 +69,14 @@ function Register(){
                                 <ErrorMessage name="password"/>
                             </span>
                         </div>
+
+                        {errors.message && (
+                                <div className="text-red-600 text-xs">{errors.message}</div>
+                            )}
+
                         <button className="m-2" type="submit" >Sign Up</button>
                     </Form>
+                   )}
                 </Formik>
 
                 <span>or</span>
