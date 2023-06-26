@@ -1,5 +1,5 @@
-sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'RPA#123@localhost' ([Errno 11003] getaddrinfo failed)")
-(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Exception: (<class 'sqlalchemy.exc.OperationalError'>, OperationalError('(pymysql.err.OperationalError) (1130, "TEST-RPA\' is not allowed to connect to this MySQL server")'), <traceback object at 0x000001F8F7327380>)
+
 
 
 
