@@ -1,5 +1,24 @@
-Exception: (<class 'sqlalchemy.exc.OperationalError'>, OperationalError('(pymysql.err.OperationalError) (1130, "TEST-RPA\' is not allowed to connect to this MySQL server")'), <traceback object at 0x000001F8F7327380>)
-
+[ ERROR ] Error : (<class 'sqlalchemy.exc.InvalidRequestError'>, InvalidRequestError('Could not reflect: requested table(s) not available in Engine(mysql+pymysql://rpa_user:***@localhost:3306/CBS_DATA): (v_RPA_ClientTable)'), <traceback object at 0x000002D922E41FC0>)
+[ ERROR ] Traceback (most recent call last):
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\WeightageProcess.py", line 200, in before_run
+    view.get_data_by_query_name('client_table')
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\DBView.py", line 98, in get_data_by_query_name
+    df.to_sql(str(VIEW_TABLE[view_table]), con=engine, if_exists='replace', index=False)
+  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pandas\core\generic.py", line 2878, in to_sql
+    return sql.to_sql(
+  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pandas\io\sql.py", line 769, in to_sql
+    return pandas_sql.to_sql(
+  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pandas\io\sql.py", line 1910, in to_sql
+    table = self.prep_table(
+  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pandas\io\sql.py", line 1814, in prep_table
+    table.create()
+  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pandas\io\sql.py", line 907, in create
+    self.pd_sql.drop_table(self.name, self.schema)
+  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pandas\io\sql.py", line 1961, in drop_table
+    self.meta.reflect(bind=self.con, only=[table_name], schema=schema)
+  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\sqlalchemy\sql\schema.py", line 5741, in reflect
+    raise exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: Could not reflect: requested table(s) not available in Engine(mysql+pymysql://rpa_user:***@localhost:3306/CBS_DATA): (v_RPA_ClientTable)
 
 
 
