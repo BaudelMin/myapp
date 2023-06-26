@@ -1,4 +1,4 @@
-pyodbc.ProgrammingError: ('42S02', "[42S02] [MySQL][ODBC 8.0(a) Driver][mysqld-8.0.33]Table 'cbs_data.sqlite_master' doesn't exist (1146) (SQLPrepare)")
+Exception: (<class 'pandas.errors.DatabaseError'>, DatabaseError('Execution failed on sql \'SELECT name FROM sqlite_master WHERE type=\'table\' AND name=?;\': (\'42S02\', "[42S02] [MySQL][ODBC 8.0(a) Driver][mysqld-8.0.33]Table \'cbs_data.sqlite_master\' doesn\'t exist (1146) (SQLPrepare)")'), <traceback object at 0x0000024D3333D040>)
 
 
 
