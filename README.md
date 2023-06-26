@@ -1,28 +1,4 @@
-CREATE TABLE v_RPA_ClientTable (
-  typeofclient VARCHAR(255),
-  clientcategory VARCHAR(255),
-  ownershiptype VARCHAR(255),
-  clientcode VARCHAR(255),
-  name VARCHAR(255),
-  firstname VARCHAR(255),
-  middlename VARCHAR(255),
-  lastname VARCHAR(255),
-  jointname VARCHAR(255),
-  address1 VARCHAR(255),
-  dateofbirth DATE,
-  citizenshipno VARCHAR(255),
-  citizendistrict VARCHAR(255),
-  fathersname VARCHAR(255),
-  gfathersname VARCHAR(255),
-  spousename VARCHAR(255),
-  clientstatus VARCHAR(255),
-  mobileno VARCHAR(255),
-  phone VARCHAR(255),
-  key_risk_grade VARCHAR(255),
-  reason VARCHAR(255),
-  pannumber VARCHAR(255),
-  regnum VARCHAR(255)
-);
+pyodbc.ProgrammingError: ('42S02', "[42S02] [MySQL][ODBC 8.0(a) Driver][mysqld-8.0.33]Table 'cbs_data.sqlite_master' doesn't exist (1146) (SQLPrepare)")
 
 
 
