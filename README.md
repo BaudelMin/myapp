@@ -1,6 +1,63 @@
-IndexError: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
-
-
+CREATE FUNCTION levenshtein_distance(s1 VARCHAR(255), s2 VARCHAR(255))
+RETURNS INT
+BEGIN
+    DECLARE s1_len, s2_len, i, j, c, c_temp, cost INT;
+    DECLARE s1_char, s2_char VARCHAR(1);
+    DECLARE distance_matrix VARBINARY(255) DEFAULT '';
+    
+    SET s1_len = CHAR_LENGTH(s1);
+    SET s2_len = CHAR_LENGTH(s2);
+    SET distance_matrix = REPEAT(CONCAT(UNHEX('FF'), UNHEX('FF')), s1_len * s2_len);
+    
+    IF s1 = s2 THEN
+        RETURN 0;
+    ELSEIF s1_len = 0 THEN
+        RETURN s2_len;
+    ELSEIF s2_len = 0 THEN
+        RETURN s1_len;
+    ELSE
+        SET i = 0;
+        WHILE i < s1_len DO
+            SET distance_matrix = INSERT(distance_matrix, (i * 2) + 1, 1, UNHEX('00'));
+            SET i = i + 1;
+        END WHILE;
+        
+        SET i = 0;
+        WHILE i < s2_len DO
+            SET distance_matrix = INSERT(distance_matrix, i * (s1_len * 2) + 1, 1, UNHEX('00'));
+            SET i = i + 1;
+        END WHILE;
+        
+        SET i = 1;
+        WHILE i <= s1_len DO
+            SET s1_char = SUBSTRING(s1, i, 1);
+            SET j = 1;
+            WHILE j <= s2_len DO
+                SET s2_char = SUBSTRING(s2, j, 1);
+                
+                IF s1_char = s2_char THEN
+                    SET cost = 0;
+                ELSE
+                    SET cost = 1;
+                END IF;
+                
+                SET c = CONVERT(HEX(SUBSTRING(distance_matrix, (j - 1) * (s1_len * 2) + (i - 1) * 2 + 1, 2)), UNSIGNED);
+                SET c_temp = LEAST(
+                    CONVERT(HEX(SUBSTRING(distance_matrix, j * (s1_len * 2) + (i - 1) * 2 + 1, 2)), UNSIGNED) + 1,
+                    CONVERT(HEX(SUBSTRING(distance_matrix, (j - 1) * (s1_len * 2) + i * 2 + 1, 2)), UNSIGNED) + 1,
+                    c + cost
+                );
+                SET distance_matrix = INSERT(distance_matrix, j * (s1_len * 2) + i * 2 + 1, 2, UNHEX(RIGHT(CONCAT('00', HEX(c_temp)), 2)));
+                
+                SET j = j + 1;
+            END WHILE;
+            
+            SET i = i + 1;
+        END WHILE;
+        
+        RETURN CONVERT(HEX(SUBSTRING(distance_matrix, s1_len * s2_len * 2 + 1, 2)), UNSIGNED);
+    END IF;
+END
 
 # Getting Started with Create React App
 
