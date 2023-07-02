@@ -1,19 +1,52 @@
-CREATE TABLE your_table_name (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    clientcode VARCHAR(255),
-    firstname VARCHAR(255),
-    middlename VARCHAR(255),
-    lastname VARCHAR(255),
-    address1 VARCHAR(255),
-    dateofbirth DATE,
-    sidtype VARCHAR(255),
-    sidnum VARCHAR(255),
-    siddistrict VARCHAR(255),
-    sfathersname VARCHAR(255),
-    sgfathersname VARCHAR(255),
-    sspousename VARCHAR(255),
-    FULLTEXT(firstname, middlename, lastname, address1, sfathersname, sgfathersname, sspousename)
-) ENGINE=InnoDB;
+	Error : (<class 'TypeError'>, TypeError('not enough arguments for format string'), <traceback object at 0x00000208255D8AC0>)	
+11:49:12.391	ERROR	Traceback (most recent call last):
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\WeightageProcess.py", line 209, in before_run
+    view.get_data_by_query_name(tablename)
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\DBView.py", line 123, in get_data_by_query_name
+    cursor.executemany(mysql_query, result)
+  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pymysql\cursors.py", line 187, in executemany
+    return self._do_execute_many(
+  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pymysql\cursors.py", line 210, in _do_execute_many
+    v = values % escape(next(args), conn)
+TypeError: not enough arguments for format string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\qrlib\QRDecorators.py", line 16, in wrapper
+    value = function(self, *args, **kwargs)
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\WeightageProcess.py", line 209, in before_run
+    view.get_data_by_query_name(tablename)
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\DBView.py", line 60, in __exit__
+    raise Exception(args)
+Exception: (<class 'TypeError'>, TypeError('not enough arguments for format string'), <traceback object at 0x00000208255D8AC0>)
+11:49:12.395	INFO	Run Item: {'started_at': '2023-07-02 11:48:53', 'completed_at': '2023-07-02 11:49:12', 'status': 'Error', 'report_data': {'Task': 'Before run: WeightageProcess'}, 'is_ticket': False, 'notification': {}}	
+11:49:12.395	ERROR	(<class 'TypeError'>, TypeError('not enough arguments for format string'), <traceback object at 0x00000208255D8AC0>)	
+11:49:12.396	ERROR	Traceback (most recent call last):
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\WeightageProcess.py", line 209, in before_run
+    view.get_data_by_query_name(tablename)
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\DBView.py", line 123, in get_data_by_query_name
+    cursor.executemany(mysql_query, result)
+  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pymysql\cursors.py", line 187, in executemany
+    return self._do_execute_many(
+  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pymysql\cursors.py", line 210, in _do_execute_many
+    v = values % escape(next(args), conn)
+TypeError: not enough arguments for format string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\Bot.py", line 32, in start
+    self.weightprocess.before_run()
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\qrlib\QRDecorators.py", line 22, in wrapper
+    raise e
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\qrlib\QRDecorators.py", line 16, in wrapper
+    value = function(self, *args, **kwargs)
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\WeightageProcess.py", line 209, in before_run
+    view.get_data_by_query_name(tablename)
+  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\DBView.py", line 60, in __exit__
+    raise Exception(args)
+Exception: (<class 'TypeError'>, TypeError('not enough arguments for format string'), <traceback object at 0x00000208255D8AC0>)
 
 
 # Getting Started with Create React App
