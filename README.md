@@ -1,18 +1,4 @@
-[ ERROR ] Traceback (most recent call last):
-  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\WeightageProcess.py", line 209, in before_run
-    view.get_data_by_query_name(tablename)
-  File "C:\Users\RPA\Documents\bots\prime-letter-actions\app\DBView.py", line 128, in get_data_by_query_name
-    cursor.executemany(mysql_query, batch_with_null)
-  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pymysql\cursors.py", line 191, in executemany
-    self.rowcount = sum(self.execute(query, arg) for arg in args)
-  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pymysql\cursors.py", line 191, in <genexpr>
-    self.rowcount = sum(self.execute(query, arg) for arg in args)
-  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pymysql\cursors.py", line 151, in execute
-    query = self.mogrify(query, args)
-  File "C:\ProgramData\robocorp\ht\1bab873_5a1fac3_9fcd2534\lib\site-packages\pymysql\cursors.py", line 129, in mogrify
-    query = query % self._escape_args(args, conn)
-TypeError: not all arguments converted during string formatting
-
+Error : (<class 'pymysql.err.OperationalError'>, OperationalError(1292, "Incorrect date value: '' for column 'dateofbirth' at row 7"), <traceback object at 0x000001B1B93A1F00>)
 
 # Getting Started with Create React App
 
