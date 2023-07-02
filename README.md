@@ -1,16 +1,20 @@
-index
-, clientcode
-, firstname
-, middlename
-, lastname
-, address1
-, dateofbirth
-, bidtype
-, bidnum
-, biddistrict
-, bfathersname
-, bgfathersname
-, bspousename
+CREATE TABLE your_table_name (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    clientcode VARCHAR(255),
+    firstname VARCHAR(255),
+    middlename VARCHAR(255),
+    lastname VARCHAR(255),
+    address1 VARCHAR(255),
+    dateofbirth DATE,
+    bidtype VARCHAR(255),
+    bidnum VARCHAR(255),
+    biddistrict VARCHAR(255),
+    bfathersname VARCHAR(255),
+    bgfathersname VARCHAR(255),
+    bspousename VARCHAR(255),
+    FULLTEXT(firstname, middlename, lastname, address1, bfathersname, bgfathersname, bspousename)
+) ENGINE=InnoDB;
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
