@@ -1,19 +1,9 @@
-CREATE TABLE your_table_name (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    clientcode VARCHAR(255),
-    name VARCHAR(255),
-    firstname VARCHAR(255),
-    middlename VARCHAR(255),
-    lastname VARCHAR(255),
-    address1 VARCHAR(255),
-    dateofbirth DATE,
-    citizenshipno VARCHAR(255),
-    citizendistrict VARCHAR(255),
-    fathersname VARCHAR(255),
-    gfathersname VARCHAR(255),
-    spousename VARCHAR(255),
-    FULLTEXT(name, firstname, middlename, lastname, address1, fathersname, gfathersname, spousename)
-) ENGINE=InnoDB;
+index, clientcode, branchcode, actype
+,cycode
+, maincode
+, name
+, isblocked
+, remarks
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
