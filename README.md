@@ -1,4 +1,25 @@
-Error : (<class 'pymysql.err.OperationalError'>, OperationalError(1292, "Incorrect date value: '' for column 'dateofbirth' at row 7"), <traceback object at 0x000001B1B93A1F00>)
+CREATE FUNCTION LEVENSHTEIN_RATIO(str1 VARCHAR(255), str2 VARCHAR(255))
+RETURNS FLOAT
+BEGIN
+    DECLARE len1 INT;
+    DECLARE len2 INT;
+    DECLARE maxLen INT;
+    DECLARE distance INT;
+    DECLARE ratio FLOAT;
+
+    SET len1 = CHAR_LENGTH(str1);
+    SET len2 = CHAR_LENGTH(str2);
+    SET maxLen = GREATEST(len1, len2);
+    
+    IF maxLen = 0 THEN
+        SET ratio = 1;
+    ELSE
+        SET distance = LEVENSHTEIN(str1, str2);
+        SET ratio = (1 - (distance / maxLen));
+    END IF;
+
+    RETURN ratio;
+END;
 
 # Getting Started with Create React App
 
