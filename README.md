@@ -1,25 +1,25 @@
-CREATE FUNCTION LEVENSHTEIN_RATIO(str1 VARCHAR(255), str2 VARCHAR(255))
-RETURNS FLOAT
-BEGIN
-    DECLARE len1 INT;
-    DECLARE len2 INT;
-    DECLARE maxLen INT;
-    DECLARE distance INT;
-    DECLARE ratio FLOAT;
-
-    SET len1 = CHAR_LENGTH(str1);
-    SET len2 = CHAR_LENGTH(str2);
-    SET maxLen = GREATEST(len1, len2);
-    
-    IF maxLen = 0 THEN
-        SET ratio = 1;
-    ELSE
-        SET distance = LEVENSHTEIN(str1, str2);
-        SET ratio = (1 - (distance / maxLen));
-    END IF;
-
-    RETURN ratio;
-END;
+ALTER TABLE your_table ADD FULLTEXT(typeofclient);
+ALTER TABLE your_table ADD FULLTEXT(clientcategory);
+ALTER TABLE your_table ADD FULLTEXT(ownershiptype);
+ALTER TABLE your_table ADD FULLTEXT(clientcode);
+ALTER TABLE your_table ADD FULLTEXT(name);
+ALTER TABLE your_table ADD FULLTEXT(firstname);
+ALTER TABLE your_table ADD FULLTEXT(middlename);
+ALTER TABLE your_table ADD FULLTEXT(lastname);
+ALTER TABLE your_table ADD FULLTEXT(jointname);
+ALTER TABLE your_table ADD FULLTEXT(address1);
+ALTER TABLE your_table ADD FULLTEXT(citizenshipno);
+ALTER TABLE your_table ADD FULLTEXT(citizendistrict);
+ALTER TABLE your_table ADD FULLTEXT(fathersname);
+ALTER TABLE your_table ADD FULLTEXT(gfathersname);
+ALTER TABLE your_table ADD FULLTEXT(spousename);
+ALTER TABLE your_table ADD FULLTEXT(clientstatus);
+ALTER TABLE your_table ADD FULLTEXT(mobileno);
+ALTER TABLE your_table ADD FULLTEXT(phone);
+ALTER TABLE your_table ADD FULLTEXT(key_risk_grade);
+ALTER TABLE your_table ADD FULLTEXT(reason);
+ALTER TABLE your_table ADD FULLTEXT(pannumber);
+ALTER TABLE your_table ADD FULLTEXT(regnum);
 
 # Getting Started with Create React App
 
