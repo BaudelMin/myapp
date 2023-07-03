@@ -1,25 +1,32 @@
-ALTER TABLE your_table ADD FULLTEXT(typeofclient);
-ALTER TABLE your_table ADD FULLTEXT(clientcategory);
-ALTER TABLE your_table ADD FULLTEXT(ownershiptype);
-ALTER TABLE your_table ADD FULLTEXT(clientcode);
-ALTER TABLE your_table ADD FULLTEXT(name);
-ALTER TABLE your_table ADD FULLTEXT(firstname);
-ALTER TABLE your_table ADD FULLTEXT(middlename);
-ALTER TABLE your_table ADD FULLTEXT(lastname);
-ALTER TABLE your_table ADD FULLTEXT(jointname);
-ALTER TABLE your_table ADD FULLTEXT(address1);
-ALTER TABLE your_table ADD FULLTEXT(citizenshipno);
-ALTER TABLE your_table ADD FULLTEXT(citizendistrict);
-ALTER TABLE your_table ADD FULLTEXT(fathersname);
-ALTER TABLE your_table ADD FULLTEXT(gfathersname);
-ALTER TABLE your_table ADD FULLTEXT(spousename);
-ALTER TABLE your_table ADD FULLTEXT(clientstatus);
-ALTER TABLE your_table ADD FULLTEXT(mobileno);
-ALTER TABLE your_table ADD FULLTEXT(phone);
-ALTER TABLE your_table ADD FULLTEXT(key_risk_grade);
-ALTER TABLE your_table ADD FULLTEXT(reason);
-ALTER TABLE your_table ADD FULLTEXT(pannumber);
-ALTER TABLE your_table ADD FULLTEXT(regnum);
+select 
+	*,
+	(name_weight + pannumber_weight + regnum_weight) as total_weight
+from 
+(
+	select 
+		clientcode,
+		typeofclient,
+		name,
+		name_percentage,
+		(name_percentage * .5) as name_weight,
+		pannumber_percentage,
+		(pannumber_percentage * .25) as pannumber_weight,
+		regnum_percentage,
+		(regnum_percentage * .25) as regnum_weight
+	from 
+	(
+		select 
+			clientcode,
+			typeofclient,
+			name,
+			fuzzy_match_percentage(name, 'Radil Koju') as name_percentage,
+			pannumber,
+			if(typeofclient = '002', fuzzy_match_percentage(pannumber, '878465132'), 0) as pannumber_percentage,
+			regnum,
+			if(typeofclient = '002', fuzzy_match_percentage(regnum, '878465132'), 0) as regnum_percentage
+		from v_rpa_clienttable
+	) as t
+) as t1
 
 # Getting Started with Create React App
 
