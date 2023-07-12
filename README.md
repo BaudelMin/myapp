@@ -1,32 +1,4 @@
-select 
-	*,
-	(name_weight + pannumber_weight + regnum_weight) as total_weight
-from 
-(
-	select 
-		clientcode,
-		typeofclient,
-		name,
-		name_percentage,
-		(name_percentage * .5) as name_weight,
-		pannumber_percentage,
-		(pannumber_percentage * .25) as pannumber_weight,
-		regnum_percentage,
-		(regnum_percentage * .25) as regnum_weight
-	from 
-	(
-		select 
-			clientcode,
-			typeofclient,
-			name,
-			fuzzy_match_percentage(name, 'Radil Koju') as name_percentage,
-			pannumber,
-			if(typeofclient = '002', fuzzy_match_percentage(pannumber, '878465132'), 0) as pannumber_percentage,
-			regnum,
-			if(typeofclient = '002', fuzzy_match_percentage(regnum, '878465132'), 0) as regnum_percentage
-		from v_rpa_clienttable
-	) as t
-) as t1
+selenium.common.exceptions.WebDriverException: Message: Service C:\Users\RPA\Documents\bots\chromedriver_win32\chromedriver.exe unexpectedly exited. Status code was: 1
 
 # Getting Started with Create React App
 
