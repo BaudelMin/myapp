@@ -1,4 +1,4 @@
-selenium.common.exceptions.WebDriverException: Message: Service C:\Users\RPA\Documents\bots\chromedriver_win32\chromedriver.exe unexpectedly exited. Status code was: 1
+ftplib.error_perm: 550 The system cannot find the file specified.
 
 # Getting Started with Create React App
 
